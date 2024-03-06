@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: Anime Poster Generator - Jasper
+  description: Builds pdf following the aesthetic of minimalist posters
+  version: 1.0.0
+  contact:
+    name: Pollito
+    url: https://pollitodev.netlify.app/
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /poster:
+    post:
+      tags:
+        - Poster
+      operationId: makePoster
+      summary: Generates a PDF of the poster with the given information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PosterContent'
+      responses:
+        '200':
+          description: Poster in PDF file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    PosterContent:
+      type: object
+      properties:
+        title:
+          type: string
+        year:
+          type: number
+        genres:
+          type: array
+          items:
+            type: string
+        studios:
+          type: array
+          items:
+            type: string
+        image:
+          type: string
+          format: byte
+          description: Base64-encoded image string.
+      required:
+        - title
+        - year
+        - genres
+        - studios
+        - image
