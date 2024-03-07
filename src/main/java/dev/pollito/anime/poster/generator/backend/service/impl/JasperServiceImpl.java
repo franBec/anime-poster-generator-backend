@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 public class JasperServiceImpl implements JasperService {
   public static final String CLASSPATH_REPORTS_POSTER_JASPER = "classpath:reports/poster.jasper";
   public static final String CLASSPATH_REPORTS_BACKGROUND_JPG = "classpath:reports/background.jpg";
+  public static final int TITLE_MAX_LENGTH = 20;
   private final ResourceLoader resourceLoader;
 
   @Override
@@ -49,7 +50,13 @@ public class JasperServiceImpl implements JasperService {
   private Map<String, Object> mapPosterContentToParameters(PosterContent content)
       throws IOException {
     Map<String, Object> parameters = new HashMap<>();
-    parameters.put("title", content.getTitle());
+
+    String title = content.getTitle();
+    if (title.length() > TITLE_MAX_LENGTH) {
+      title = title.substring(0, TITLE_MAX_LENGTH - 1) + "...";
+    }
+
+    parameters.put("title", title);
     parameters.put("year", content.getYear().toString());
     parameters.put("genres", String.join(", ", content.getGenres()));
     parameters.put("studios", String.join(", ", content.getStudios()));
