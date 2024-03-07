@@ -2,9 +2,14 @@ package dev.pollito.anime.poster.generator.backend.service.impl;
 
 import dev.pollito.anime.poster.generator.backend.models.PosterContent;
 import dev.pollito.anime.poster.generator.backend.service.JasperService;
+import java.awt.*;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import javax.imageio.ImageIO;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -27,10 +32,10 @@ public class JasperServiceImpl implements JasperService {
 
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("title", content.getTitle());
-    parameters.put("year", content.getYear());
+    parameters.put("year", content.getYear().toString());
     parameters.put("genres", String.join(", ", content.getGenres()));
     parameters.put("studios", String.join(", ", content.getStudios()));
-    parameters.put("image", content.getImage());
+    parameters.put("image", getImageFromBase64String(content.getImage()));
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     JasperExportManager.exportReportToPdfStream(
@@ -43,5 +48,12 @@ public class JasperServiceImpl implements JasperService {
         byteArrayOutputStream);
 
     return byteArrayOutputStream.toByteArray();
+  }
+
+  private Image getImageFromBase64String(String imageBytes) throws IOException {
+    ByteArrayInputStream bis = new ByteArrayInputStream(Base64.getDecoder().decode(imageBytes));
+    Image image = ImageIO.read(bis);
+    bis.close();
+    return image;
   }
 }

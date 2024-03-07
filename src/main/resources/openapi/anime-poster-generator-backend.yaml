@@ -50,7 +50,6 @@ components:
             type: string
         image:
           type: string
-          format: byte
           description: Base64-encoded image string.
       required:
         - title
