@@ -3,9 +3,11 @@ package dev.pollito.anime.poster.generator.backend.service.impl;
 import dev.pollito.anime.poster.generator.backend.models.PosterContent;
 import dev.pollito.anime.poster.generator.backend.service.JasperService;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +33,21 @@ public class JasperServiceImpl implements JasperService {
   @SneakyThrows
   public byte[] makePoster(PosterContent content) {
 
+    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    JasperExportManager.exportReportToPdfStream(
+        JasperFillManager.fillReport(
+            (JasperReport)
+                JRLoader.loadObject(
+                    resourceLoader.getResource(CLASSPATH_REPORTS_POSTER_JASPER).getInputStream()),
+            mapPosterContentToParameters(content),
+            new JREmptyDataSource()),
+        byteArrayOutputStream);
+
+    return byteArrayOutputStream.toByteArray();
+  }
+
+  private Map<String, Object> mapPosterContentToParameters(PosterContent content)
+      throws IOException {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("title", content.getTitle());
     parameters.put("year", content.getYear().toString());
@@ -39,25 +56,19 @@ public class JasperServiceImpl implements JasperService {
     parameters.put("image", getImageFromBase64String(content.getImage()));
     parameters.put(
         "background",
-        ImageIO.read(
+        getBufferedImageFromInputStream(
             resourceLoader.getResource(CLASSPATH_REPORTS_BACKGROUND_JPG).getInputStream()));
+    return parameters;
+  }
 
-    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    JasperExportManager.exportReportToPdfStream(
-        JasperFillManager.fillReport(
-            (JasperReport)
-                JRLoader.loadObject(
-                    resourceLoader.getResource(CLASSPATH_REPORTS_POSTER_JASPER).getInputStream()),
-            parameters,
-            new JREmptyDataSource()),
-        byteArrayOutputStream);
-
-    return byteArrayOutputStream.toByteArray();
+  private BufferedImage getBufferedImageFromInputStream(InputStream resourceLoader)
+      throws IOException {
+    return ImageIO.read(resourceLoader);
   }
 
   private Image getImageFromBase64String(String imageBytes) throws IOException {
     ByteArrayInputStream bis = new ByteArrayInputStream(Base64.getDecoder().decode(imageBytes));
-    Image image = ImageIO.read(bis);
+    Image image = getBufferedImageFromInputStream(bis);
     bis.close();
     return image;
   }
