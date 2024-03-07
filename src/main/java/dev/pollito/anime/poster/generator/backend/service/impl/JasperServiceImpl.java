@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
 public class JasperServiceImpl implements JasperService {
   public static final String CLASSPATH_REPORTS_POSTER_JASPER = "classpath:reports/poster.jasper";
   public static final String CLASSPATH_REPORTS_BACKGROUND_JPG = "classpath:reports/background.jpg";
-  public static final int TITLE_MAX_LENGTH = 20;
+  public static final int TITLE_MAX_LENGTH = 21;
   public static final int GENRES_MAX_SIZE = 3;
   public static final int STUDIOS_MAX_SIZE = 2;
   public static final int YEAR_MAX_LENGTH = 4;
@@ -82,12 +82,12 @@ public class JasperServiceImpl implements JasperService {
     return parameters;
   }
 
-  private BufferedImage getBufferedImageFromInputStream(InputStream resourceLoader)
+  private static BufferedImage getBufferedImageFromInputStream(InputStream resourceLoader)
       throws IOException {
     return ImageIO.read(resourceLoader);
   }
 
-  private Image getImageFromBase64String(String imageBytes) throws IOException {
+  private static Image getImageFromBase64String(String imageBytes) throws IOException {
     ByteArrayInputStream bis = new ByteArrayInputStream(Base64.getDecoder().decode(imageBytes));
     Image image = getBufferedImageFromInputStream(bis);
     bis.close();
