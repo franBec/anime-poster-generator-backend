@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -28,6 +29,9 @@ public class JasperServiceImpl implements JasperService {
   public static final String CLASSPATH_REPORTS_POSTER_JASPER = "classpath:reports/poster.jasper";
   public static final String CLASSPATH_REPORTS_BACKGROUND_JPG = "classpath:reports/background.jpg";
   public static final int TITLE_MAX_LENGTH = 20;
+  public static final int GENRES_MAX_SIZE = 3;
+  public static final int STUDIOS_MAX_SIZE = 2;
+  public static final int YEAR_MAX_LENGTH = 4;
   private final ResourceLoader resourceLoader;
 
   @Override
@@ -51,15 +55,25 @@ public class JasperServiceImpl implements JasperService {
       throws IOException {
     Map<String, Object> parameters = new HashMap<>();
 
-    String title = content.getTitle();
+    String title = content.getTitle().toUpperCase();
     if (title.length() > TITLE_MAX_LENGTH) {
       title = title.substring(0, TITLE_MAX_LENGTH - 1) + "...";
     }
-
     parameters.put("title", title);
-    parameters.put("year", content.getYear().toString());
-    parameters.put("genres", String.join(", ", content.getGenres()));
-    parameters.put("studios", String.join(", ", content.getStudios()));
+    parameters.put("year", content.getYear().toString().substring(0, YEAR_MAX_LENGTH));
+    parameters.put(
+        "genres",
+        content.getGenres().stream()
+            .limit(GENRES_MAX_SIZE)
+            .map(String::toUpperCase)
+            .collect(Collectors.joining("\t")));
+    parameters.put("director", content.getDirector().toUpperCase());
+    parameters.put(
+        "studios",
+        content.getStudios().stream()
+            .limit(STUDIOS_MAX_SIZE)
+            .map(String::toUpperCase)
+            .collect(Collectors.joining("\t")));
     parameters.put("image", getImageFromBase64String(content.getImage()));
     parameters.put(
         "background",
