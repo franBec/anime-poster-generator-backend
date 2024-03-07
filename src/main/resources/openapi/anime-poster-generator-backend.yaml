@@ -46,7 +46,7 @@ components:
             type: string
         director:
           type: string
-        studios:
+        producers:
           type: array
           items:
             type: string
@@ -58,5 +58,5 @@ components:
         - year
         - genres
         - director
-        - studios
+        - producers
         - image

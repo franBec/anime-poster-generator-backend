@@ -69,8 +69,8 @@ public class JasperServiceImpl implements JasperService {
             .collect(Collectors.joining("\t")));
     parameters.put("director", content.getDirector().toUpperCase());
     parameters.put(
-        "studios",
-        content.getStudios().stream()
+        "producers",
+        content.getProducers().stream()
             .limit(STUDIOS_MAX_SIZE)
             .map(String::toUpperCase)
             .collect(Collectors.joining("\t")));

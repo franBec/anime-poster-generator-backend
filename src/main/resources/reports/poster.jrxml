@@ -7,7 +7,7 @@
 	<parameter name="title" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="genres" class="java.lang.String"/>
-	<parameter name="studios" class="java.lang.String"/>
+	<parameter name="producers" class="java.lang.String"/>
 	<parameter name="background" class="java.awt.Image"/>
 	<parameter name="director" class="java.lang.String"/>
 	<background>
@@ -43,7 +43,7 @@
 				</textField>
 			</frame>
 			<frame>
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="59" y="606" width="477" height="20" uuid="2cffb971-6dd8-4998-ac6b-3333845ddc92"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="59" y="646" width="477" height="20" uuid="2cffb971-6dd8-4998-ac6b-3333845ddc92"/>
 				<textField>
 					<reportElement x="86" y="0" width="391" height="20" uuid="3b8341c6-87a6-423f-b8f5-10b2727b807d"/>
 					<textElement verticalAlignment="Bottom">
@@ -60,7 +60,7 @@
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement positionType="Float" x="59" y="586" width="477" height="20" uuid="a160ac20-3267-4972-8d9e-2d9fff169db0"/>
+				<reportElement positionType="Float" x="59" y="626" width="477" height="20" uuid="a160ac20-3267-4972-8d9e-2d9fff169db0"/>
 				<staticText>
 					<reportElement x="0" y="0" width="54" height="20" uuid="46656a79-abcb-4566-be1c-f04d25503841"/>
 					<textElement verticalAlignment="Bottom">
@@ -77,7 +77,7 @@
 				</textField>
 			</frame>
 			<frame>
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="59" y="626" width="477" height="20" uuid="2622f523-4dab-437c-8457-e59aada2ffe6"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="59" y="666" width="477" height="20" uuid="2622f523-4dab-437c-8457-e59aada2ffe6"/>
 				<staticText>
 					<reportElement x="0" y="0" width="96" height="20" uuid="b842ad81-fae5-48df-93a9-552433c45953"/>
 					<textElement verticalAlignment="Bottom">
@@ -90,8 +90,11 @@
 					<textElement verticalAlignment="Bottom">
 						<font fontName="SansSerif" size="14" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{studios}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{producers}]]></textFieldExpression>
 				</textField>
+			</frame>
+			<frame>
+				<reportElement x="59" y="586" width="477" height="40" uuid="55446041-5ef0-48db-8c7d-ee895cdd47c4"/>
 			</frame>
 		</band>
 	</detail>
