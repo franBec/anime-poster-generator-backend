@@ -29,8 +29,12 @@ paths:
               schema:
                 type: string
                 format: binary
-        '500':
-          description: Internal Server Error
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     PosterContent:
@@ -60,3 +64,24 @@ components:
         - director
         - producers
         - image
+    Error:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: The date and time when the error occurred in ISO 8601 format.
+          format: date-time
+          example: "2024-01-04T15:30:00Z"
+        session:
+          type: string
+          format: uuid
+          description: A unique UUID for the session instance where the error happened, useful for tracking and debugging purposes.
+        error:
+          type: string
+          description: A brief error message or identifier.
+        message:
+          type: string
+          description: A detailed error message.
+        path:
+          type: string
+          description: The path that resulted in the error.
