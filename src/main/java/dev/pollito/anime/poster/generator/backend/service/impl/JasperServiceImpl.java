@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JasperServiceImpl implements JasperService {
   public static final String CLASSPATH_REPORTS_POSTER_JASPER = "classpath:reports/poster.jasper";
+  public static final String CLASSPATH_REPORTS_BACKGROUND_JPG = "classpath:reports/background.jpg";
   private final ResourceLoader resourceLoader;
 
   @Override
@@ -36,6 +37,10 @@ public class JasperServiceImpl implements JasperService {
     parameters.put("genres", String.join(", ", content.getGenres()));
     parameters.put("studios", String.join(", ", content.getStudios()));
     parameters.put("image", getImageFromBase64String(content.getImage()));
+    parameters.put(
+        "background",
+        ImageIO.read(
+            resourceLoader.getResource(CLASSPATH_REPORTS_BACKGROUND_JPG).getInputStream()));
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     JasperExportManager.exportReportToPdfStream(

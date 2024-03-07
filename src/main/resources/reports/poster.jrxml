@@ -1,69 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="poster" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="915bc299-e40f-4415-9f74-61820032f252">
-	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.zoom" value="0.9075000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="32"/>
+	<property name="ireport.y" value="160"/>
 	<parameter name="image" class="java.awt.Image"/>
 	<parameter name="title" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="genres" class="java.lang.String"/>
 	<parameter name="studios" class="java.lang.String"/>
+	<parameter name="background" class="java.awt.Image"/>
+	<background>
+		<band height="842">
+			<image scaleImage="FillFrame" isUsingCache="false">
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="0" width="595" height="842" uuid="d350fba0-c5e2-4416-99e8-f97e5505d6d1"/>
+				<imageExpression><![CDATA[$P{background}]]></imageExpression>
+			</image>
+		</band>
+	</background>
 	<detail>
-		<band height="842" splitType="Stretch">
+		<band height="626" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement positionType="Float" x="59" y="59" width="477" height="477" uuid="07e230a8-b867-4890-b2bc-91011a9507fb"/>
+				<imageExpression><![CDATA[$P{image}]]></imageExpression>
+			</image>
 			<frame>
-				<reportElement mode="Opaque" x="0" y="0" width="595" height="842" isPrintWhenDetailOverflows="true" backcolor="#E3DEDA" uuid="1490201a-9fbc-413e-8cae-c14492d4ba2b"/>
-				<image scaleImage="FillFrame">
-					<reportElement positionType="Float" x="59" y="59" width="477" height="477" uuid="07e230a8-b867-4890-b2bc-91011a9507fb"/>
-					<imageExpression><![CDATA[$P{image}]]></imageExpression>
-				</image>
-				<frame>
-					<reportElement stretchType="RelativeToTallestObject" x="59" y="536" width="477" height="50" uuid="3f1c7ed9-bb5f-47ce-aabc-2244a8fcff4d"/>
-					<textField isStretchWithOverflow="true">
-						<reportElement x="0" y="0" width="404" height="50" uuid="8a6abc39-705b-4a9e-89c4-85bb5be46a33"/>
-						<textElement verticalAlignment="Bottom">
-							<font fontName="SansSerif" size="40" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
-					</textField>
-					<textField isStretchWithOverflow="true">
-						<reportElement x="404" y="0" width="73" height="50" uuid="2f7170f3-622b-418d-b380-5bc075a48024"/>
-						<textElement verticalAlignment="Bottom">
-							<font fontName="SansSerif" size="30" isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$P{year}]]></textFieldExpression>
-					</textField>
-				</frame>
-				<frame>
-					<reportElement positionType="Float" x="59" y="586" width="477" height="40" uuid="a160ac20-3267-4972-8d9e-2d9fff169db0"/>
-					<staticText>
-						<reportElement x="0" y="20" width="64" height="20" uuid="995098a1-c03e-4377-b187-68053a849499"/>
-						<textElement verticalAlignment="Bottom">
-							<font size="14"/>
-						</textElement>
-						<text><![CDATA[studios]]></text>
-					</staticText>
-					<staticText>
-						<reportElement x="0" y="0" width="54" height="20" uuid="46656a79-abcb-4566-be1c-f04d25503841"/>
-						<textElement verticalAlignment="Bottom">
-							<font size="14"/>
-						</textElement>
-						<text><![CDATA[genre]]></text>
-					</staticText>
-					<textField>
-						<reportElement x="54" y="0" width="423" height="20" uuid="6beb6283-b0e7-4cc0-8373-79d00173c4de"/>
-						<textElement verticalAlignment="Bottom">
-							<font size="14"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$P{genres}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="64" y="20" width="413" height="20" uuid="c52ba21d-697f-4cdc-8df6-52270811d3e7"/>
-						<textElement verticalAlignment="Bottom">
-							<font size="14"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$P{studios}]]></textFieldExpression>
-					</textField>
-				</frame>
+				<reportElement stretchType="RelativeToTallestObject" x="59" y="536" width="477" height="50" uuid="3f1c7ed9-bb5f-47ce-aabc-2244a8fcff4d"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="0" width="404" height="50" uuid="8a6abc39-705b-4a9e-89c4-85bb5be46a33"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="SansSerif" size="40" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="404" y="0" width="73" height="50" uuid="2f7170f3-622b-418d-b380-5bc075a48024"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="SansSerif" size="30" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{year}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="59" y="586" width="477" height="40" uuid="a160ac20-3267-4972-8d9e-2d9fff169db0"/>
+				<staticText>
+					<reportElement x="0" y="20" width="64" height="20" uuid="995098a1-c03e-4377-b187-68053a849499"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[studios]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="54" height="20" uuid="46656a79-abcb-4566-be1c-f04d25503841"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[genre]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="54" y="0" width="423" height="20" uuid="6beb6283-b0e7-4cc0-8373-79d00173c4de"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{genres}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="64" y="20" width="413" height="20" uuid="c52ba21d-697f-4cdc-8df6-52270811d3e7"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{studios}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</detail>
