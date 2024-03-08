@@ -1,5 +1,6 @@
 package dev.pollito.anime.poster.generator.backend.service.impl;
 
+import dev.pollito.anime.poster.generator.backend.exception.InvalidBase64ImageException;
 import dev.pollito.anime.poster.generator.backend.models.PosterContent;
 import dev.pollito.anime.poster.generator.backend.service.JasperService;
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +39,9 @@ public class JasperServiceImpl implements JasperService {
   @Override
   @SneakyThrows
   public byte[] makePoster(PosterContent content) {
+    if(!isValidBase64Image(content.getImage())){
+      throw new InvalidBase64ImageException();
+    }
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     JasperExportManager.exportReportToPdfStream(
@@ -92,5 +97,21 @@ public class JasperServiceImpl implements JasperService {
     Image image = getBufferedImageFromInputStream(bis);
     bis.close();
     return image;
+  }
+
+  private static boolean isValidBase64Image(String base64ImageString) {
+    byte[] imageBytes;
+    try {
+      imageBytes = Base64.getDecoder().decode(base64ImageString);
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
+
+    try (ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes)) {
+      BufferedImage image = ImageIO.read(bais);
+      return Objects.nonNull(image);
+    } catch (Exception e) {
+      return false;
+    }
   }
 }

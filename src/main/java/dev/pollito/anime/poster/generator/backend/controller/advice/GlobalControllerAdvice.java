@@ -6,6 +6,7 @@ import static dev.pollito.anime.poster.generator.backend.util.ControllerAdviceUt
 import dev.pollito.anime.poster.generator.backend.models.Error;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+@Order()
 @RestControllerAdvice
 @Slf4j
 public class GlobalControllerAdvice {

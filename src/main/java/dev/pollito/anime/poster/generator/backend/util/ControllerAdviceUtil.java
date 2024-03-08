@@ -2,6 +2,7 @@ package dev.pollito.anime.poster.generator.backend.util;
 
 import static dev.pollito.anime.poster.generator.backend.util.Constants.SLF4J_MDC_SESSION_ID_KEY;
 
+import dev.pollito.anime.poster.generator.backend.exception.InvalidBase64ImageException;
 import dev.pollito.anime.poster.generator.backend.models.Error;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -76,6 +77,10 @@ public class ControllerAdviceUtil {
   public static ResponseEntity<Error> getBadRequestError(MethodArgumentNotValidException e) {
     return buildErrorResponse(
         HttpStatus.BAD_REQUEST, e, methodArgumentNotValidExceptionMessageFormatter(e));
+  }
+
+  public static ResponseEntity<Error> getBadRequestError(InvalidBase64ImageException e) {
+    return buildErrorResponse(HttpStatus.BAD_REQUEST, e, "image provided is not a valid Base64Image");
   }
 
   @NotNull
