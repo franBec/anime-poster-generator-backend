@@ -39,7 +39,7 @@ public class JasperServiceImpl implements JasperService {
   @Override
   @SneakyThrows
   public byte[] makePoster(PosterContent content) {
-    if(!isValidBase64Image(content.getImage())){
+    if (!isValidBase64Image(content.getImage())) {
       throw new InvalidBase64ImageException();
     }
 

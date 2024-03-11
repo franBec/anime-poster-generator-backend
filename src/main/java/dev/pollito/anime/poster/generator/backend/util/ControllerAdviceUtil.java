@@ -80,7 +80,8 @@ public class ControllerAdviceUtil {
   }
 
   public static ResponseEntity<Error> getBadRequestError(InvalidBase64ImageException e) {
-    return buildErrorResponse(HttpStatus.BAD_REQUEST, e, "image provided is not a valid Base64Image");
+    return buildErrorResponse(
+        HttpStatus.BAD_REQUEST, e, "image provided is not a valid Base64Image");
   }
 
   @NotNull
