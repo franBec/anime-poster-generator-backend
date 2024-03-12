@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -30,7 +31,7 @@ import org.springframework.stereotype.Service;
 public class JasperServiceImpl implements JasperService {
   public static final String CLASSPATH_REPORTS_POSTER_JASPER = "classpath:reports/poster.jasper";
   public static final String CLASSPATH_REPORTS_BACKGROUND_JPG = "classpath:reports/background.jpg";
-  public static final int TITLE_MAX_LENGTH = 21;
+  public static final int TITLE_MAX_LENGTH = 30;
   public static final int LISTS_MAX_SIZE = 3;
   public static final int YEAR_MAX_LENGTH = 4;
   private final ResourceLoader resourceLoader;
@@ -59,37 +60,47 @@ public class JasperServiceImpl implements JasperService {
       throws IOException {
     Map<String, Object> parameters = new HashMap<>();
 
-    String title = content.getTitle().toUpperCase();
-    if (title.length() > TITLE_MAX_LENGTH) {
-      title = title.substring(0, TITLE_MAX_LENGTH - 1) + "...";
-    }
-    parameters.put("title", title);
-    parameters.put("year", content.getYear().toString().substring(0, YEAR_MAX_LENGTH));
-    parameters.put(
-        "genres",
-        content.getGenres().stream()
-            .limit(LISTS_MAX_SIZE)
-            .map(String::toUpperCase)
-            .collect(Collectors.joining("\t")));
-    parameters.put("director", content.getDirector().toUpperCase());
-    parameters.put(
-        "producers",
-        content.getProducers().stream()
-            .limit(LISTS_MAX_SIZE)
-            .map(String::toUpperCase)
-            .collect(Collectors.joining("\t")));
-    parameters.put(
-        "studios",
-        content.getStudios().stream()
-            .limit(LISTS_MAX_SIZE)
-            .map(String::toUpperCase)
-            .collect(Collectors.joining("\t")));
+    parameters.put("title", getTitleValue(content.getTitle()));
+    parameters.put("year", getYearValue(content.getYear()));
+    parameters.put("genres", getListValues(content.getGenres()));
+    parameters.put("director", getDirectorValue(content.getDirector()));
+    parameters.put("producers",getListValues(content.getProducers()));
+    parameters.put("studios",getListValues(content.getStudios()));
     parameters.put("image", getImageFromBase64String(content.getImage()));
     parameters.put(
         "background",
         getBufferedImageFromInputStream(
             resourceLoader.getResource(CLASSPATH_REPORTS_BACKGROUND_JPG).getInputStream()));
     return parameters;
+  }
+
+  private static String getTitleValue(String title){
+    title = title.toUpperCase();
+    if (title.length() > TITLE_MAX_LENGTH) {
+      title = title.substring(0, TITLE_MAX_LENGTH - 1) + "...";
+    }
+
+    return title;
+  }
+
+  private static String getYearValue(Integer yearInt){
+    String year = yearInt.toString();
+    if(year.length() > YEAR_MAX_LENGTH){
+      year = year.substring(0, YEAR_MAX_LENGTH);
+    }
+
+    return year;
+  }
+
+  private static String getListValues(List<String> genres){
+    return genres.stream()
+            .limit(LISTS_MAX_SIZE)
+            .map(String::toUpperCase)
+            .collect(Collectors.joining("\t"));
+  }
+
+  private static String getDirectorValue(String director){
+    return director.toUpperCase();
   }
 
   private static BufferedImage getBufferedImageFromInputStream(InputStream resourceLoader)
