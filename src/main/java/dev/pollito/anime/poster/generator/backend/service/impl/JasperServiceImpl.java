@@ -79,11 +79,11 @@ public class JasperServiceImpl implements JasperService {
             .map(String::toUpperCase)
             .collect(Collectors.joining("\t")));
     parameters.put(
-            "studios",
-            content.getStudios().stream()
-                    .limit(LISTS_MAX_SIZE)
-                    .map(String::toUpperCase)
-                    .collect(Collectors.joining("\t")));
+        "studios",
+        content.getStudios().stream()
+            .limit(LISTS_MAX_SIZE)
+            .map(String::toUpperCase)
+            .collect(Collectors.joining("\t")));
     parameters.put("image", getImageFromBase64String(content.getImage()));
     parameters.put(
         "background",
