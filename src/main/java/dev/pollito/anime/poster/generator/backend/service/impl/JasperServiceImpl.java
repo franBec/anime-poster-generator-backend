@@ -31,8 +31,7 @@ public class JasperServiceImpl implements JasperService {
   public static final String CLASSPATH_REPORTS_POSTER_JASPER = "classpath:reports/poster.jasper";
   public static final String CLASSPATH_REPORTS_BACKGROUND_JPG = "classpath:reports/background.jpg";
   public static final int TITLE_MAX_LENGTH = 21;
-  public static final int GENRES_MAX_SIZE = 3;
-  public static final int STUDIOS_MAX_SIZE = 2;
+  public static final int LISTS_MAX_SIZE = 3;
   public static final int YEAR_MAX_LENGTH = 4;
   private final ResourceLoader resourceLoader;
 
@@ -69,16 +68,22 @@ public class JasperServiceImpl implements JasperService {
     parameters.put(
         "genres",
         content.getGenres().stream()
-            .limit(GENRES_MAX_SIZE)
+            .limit(LISTS_MAX_SIZE)
             .map(String::toUpperCase)
             .collect(Collectors.joining("\t")));
     parameters.put("director", content.getDirector().toUpperCase());
     parameters.put(
         "producers",
         content.getProducers().stream()
-            .limit(STUDIOS_MAX_SIZE)
+            .limit(LISTS_MAX_SIZE)
             .map(String::toUpperCase)
             .collect(Collectors.joining("\t")));
+    parameters.put(
+            "studios",
+            content.getStudios().stream()
+                    .limit(LISTS_MAX_SIZE)
+                    .map(String::toUpperCase)
+                    .collect(Collectors.joining("\t")));
     parameters.put("image", getImageFromBase64String(content.getImage()));
     parameters.put(
         "background",

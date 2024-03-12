@@ -54,6 +54,10 @@ components:
           type: array
           items:
             type: string
+        studios:
+          type: array
+          items:
+            type: string
         image:
           type: string
           description: Base64-encoded image string.

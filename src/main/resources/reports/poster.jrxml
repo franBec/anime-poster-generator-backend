@@ -10,6 +10,7 @@
 	<parameter name="producers" class="java.lang.String"/>
 	<parameter name="background" class="java.awt.Image"/>
 	<parameter name="director" class="java.lang.String"/>
+	<parameter name="studios" class="java.lang.String"/>
 	<background>
 		<band height="842">
 			<image scaleImage="FillFrame" isUsingCache="false">
@@ -74,6 +75,23 @@
 						<font fontName="SansSerif" size="14" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{genres}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="59" y="686" width="477" height="20" uuid="363f4a91-5bea-46ef-a1e9-4dc1ddecc870"/>
+				<staticText>
+					<reportElement x="0" y="0" width="65" height="20" uuid="c31bbbf1-58d1-456d-a0fd-8cec8eec2b6a"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="SansSerif" size="14"/>
+					</textElement>
+					<text><![CDATA[studios]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="65" y="0" width="412" height="20" uuid="97284af6-be31-48a6-85d5-f3bb4e80fb19"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{studios}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
