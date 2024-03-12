@@ -64,8 +64,8 @@ public class JasperServiceImpl implements JasperService {
     parameters.put("year", getYearValue(content.getYear()));
     parameters.put("genres", getListValues(content.getGenres()));
     parameters.put("director", getDirectorValue(content.getDirector()));
-    parameters.put("producers",getListValues(content.getProducers()));
-    parameters.put("studios",getListValues(content.getStudios()));
+    parameters.put("producers", getListValues(content.getProducers()));
+    parameters.put("studios", getListValues(content.getStudios()));
     parameters.put("image", getImageFromBase64String(content.getImage()));
     parameters.put(
         "background",
@@ -74,7 +74,7 @@ public class JasperServiceImpl implements JasperService {
     return parameters;
   }
 
-  private static String getTitleValue(String title){
+  private static String getTitleValue(String title) {
     title = title.toUpperCase();
     if (title.length() > TITLE_MAX_LENGTH) {
       title = title.substring(0, TITLE_MAX_LENGTH - 1) + "...";
@@ -83,23 +83,23 @@ public class JasperServiceImpl implements JasperService {
     return title;
   }
 
-  private static String getYearValue(Integer yearInt){
+  private static String getYearValue(Integer yearInt) {
     String year = yearInt.toString();
-    if(year.length() > YEAR_MAX_LENGTH){
+    if (year.length() > YEAR_MAX_LENGTH) {
       year = year.substring(0, YEAR_MAX_LENGTH);
     }
 
     return year;
   }
 
-  private static String getListValues(List<String> genres){
+  private static String getListValues(List<String> genres) {
     return genres.stream()
-            .limit(LISTS_MAX_SIZE)
-            .map(String::toUpperCase)
-            .collect(Collectors.joining("\t"));
+        .limit(LISTS_MAX_SIZE)
+        .map(String::toUpperCase)
+        .collect(Collectors.joining("\t"));
   }
 
-  private static String getDirectorValue(String director){
+  private static String getDirectorValue(String director) {
     return director.toUpperCase();
   }
 
