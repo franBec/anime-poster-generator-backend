@@ -29,11 +29,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class JasperServiceImpl implements JasperService {
-  public static final String CLASSPATH_REPORTS_POSTER_JASPER = "classpath:reports/poster.jasper";
-  public static final String CLASSPATH_REPORTS_BACKGROUND_JPG = "classpath:reports/background.jpg";
-  public static final int TITLE_MAX_LENGTH = 30;
-  public static final int LISTS_MAX_SIZE = 3;
-  public static final int YEAR_MAX_LENGTH = 4;
+  private static final String CLASSPATH_REPORTS_POSTER_JASPER = "classpath:reports/poster.jasper";
+  private static final String CLASSPATH_REPORTS_BACKGROUND_JPG = "classpath:reports/background.jpg";
+  private static final int TITLE_MAX_LENGTH = 30;
+  private static final int LISTS_MAX_SIZE = 3;
+  private static final int YEAR_MAX_LENGTH = 4;
   private final ResourceLoader resourceLoader;
 
   @Override
